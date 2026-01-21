@@ -6,9 +6,13 @@ This is a collection of components that I've written to fill in the gaps.
 
 Massive work in progress.
 
-## Components
+## Components (and TODO)
 
-- [ ] Button
+- [x] Button
+    - [x] hover state
+    - [x] Press state and result
+    - [x] Disabled state
+
 - [ ] TextField
 - [ ] Checkbox
 - [ ] RadioButton

@@ -1,10 +1,12 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "src/rclayui.c"
-#define CLAY_IMPLEMENTATION
 #include "src/clay.h"
-#include "vendor/clay/renderers/raylib/clay_renderer_raylib.c"
+#include "src/raylib.h"
+#define CLAY_IMPLEMENTATION
+#include "clay_renderer_raylib.c"
+
+#include "src/button.c"
 
 void HandleClayErrors(Clay_ErrorData errorData) {
   printf("%s", errorData.errorText.chars);
@@ -17,7 +19,10 @@ Clay_RenderCommandArray RenderLayout() {
                                         .width = CLAY_SIZING_GROW(),
                                         .height = CLAY_SIZING_GROW(),
                                     }}}) {
-    rClayButton(CLAY_ID("Button"), CLAY_STRING("Click me!"));
+    if (rClayButton(CLAY_ID("Button"), CLAY_STRING("Click me!"),
+                    (RClayButtonState){0})) {
+      printf("Clicked!\n");
+    };
   }
   return Clay_EndLayout();
 }
