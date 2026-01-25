@@ -1,10 +1,14 @@
 #include "clay.h"
 #include "raylib.h"
 
+#ifndef RCLAY_ON_HOVER
 #define RCLAY_ON_HOVER(t, f) (Clay_Hovered() ? (t) : (f))
+#endif
 
+#ifndef RCLAY_ON_PRESS
 #define RCLAY_ON_PRESS(t, f)                                                   \
   ((Clay_Hovered() && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) ? (t) : (f))
+#endif
 
 typedef struct {
   // Background
