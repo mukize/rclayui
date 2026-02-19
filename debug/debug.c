@@ -1,19 +1,21 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "src/clay.h"
-#include "src/raylib.h"
+#include "../src/clay.h"
+#include "../src/raylib.h"
+
 #define CLAY_IMPLEMENTATION
 #include "clay_renderer_raylib.c"
 
-#include "src/button.c"
-#include "src/text-input.c"
+#define RCLAYUI_IMPLEMENTATION
+#include "components.c"
 
 void HandleClayErrors(Clay_ErrorData errorData) {
   printf("%s", errorData.errorText.chars);
 }
 
-char textInputBuffer[256] = "";
+RC_ButtonState btn_st =
+    (RC_ButtonState){.isDisabled = false, .label = CLAY_STRING("Disable")};
 
 Clay_RenderCommandArray RenderLayout() {
   Clay_BeginLayout();
@@ -23,12 +25,10 @@ Clay_RenderCommandArray RenderLayout() {
                                         .width = CLAY_SIZING_GROW(),
                                         .height = CLAY_SIZING_GROW(),
                                     }}}) {
-    if (rClayButton(CLAY_ID("Button"), CLAY_STRING("Click me!"),
-                    (RClayButtonState){.isDisabled = true})) {
-      printf("Clicked!\n");
+    if (myButton(CLAY_ID("button"), btn_st)) {
+      btn_st.isDisabled = true;
+      printf("Clicked! isDisabled = %b\n", btn_st.isDisabled);
     };
-
-    rClayTextInput(CLAY_ID("TextInput"), 256, textInputBuffer);
   }
   return Clay_EndLayout();
 }
@@ -49,7 +49,7 @@ int main(void) {
   fonts[0] = GetFontDefault();
   SetTextureFilter(fonts[0].texture, TEXTURE_FILTER_TRILINEAR);
   Clay_SetMeasureTextFunction(Raylib_MeasureText, fonts);
-  rClayTextInputInitialize();
+  // rClayTextInputInitialize();
 
   while (!WindowShouldClose()) {
     Vector2 mousePos = GetMousePosition();
@@ -69,7 +69,7 @@ int main(void) {
 
     Clay_RenderCommandArray commands = RenderLayout();
     BeginDrawing();
-    ClearBackground(RAYWHITE);
+    ClearBackground(CTR(rcColorBase));
     Clay_Raylib_Render(commands, fonts);
     EndDrawing();
   }

@@ -1,0 +1,12 @@
+CompileFlags:
+  Add: [
+    -DRCLAYUI_IMPLEMENTATION,
+    -I,
+    src,
+    -include,
+    rclayui.h
+  ]
+Diagnostics:
+  Suppress: [
+    misc-definitions-in-headers
+  ]

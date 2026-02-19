@@ -25,10 +25,9 @@ stdenv.mkDerivation {
     ""
     "-Wall"
     "-Wextra"
-    "-Werror"
   ];
 
-  buildPhase = ''gcc debug.c $CFLAGS -o rclayui-components $LDFLAGS -lraylib -lm '';
+  buildPhase = ''gcc debug/debug.c $CFLAGS -o rclayui-components $LDFLAGS -Idebug -lraylib -lm '';
   installPhase = ''
     install -D -m 755 rclayui-components $out/bin/rclayui-components
   '';

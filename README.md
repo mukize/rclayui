@@ -14,8 +14,9 @@ Massive work in progress.
     - [x] Returns true if pressed
 
 - [ ] TextField
-    - [x] Capture input
-    - [x] Functional backspace
+    - [x] Style (ish)
+    - [x] Capturing input
+    - [x] Working-ish backspace
     - [ ] Functional cursor
     - [ ] Repeat text
     - [ ] Repeat backspace
